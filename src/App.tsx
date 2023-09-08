@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <div className="p-12">
-        <Header />
+        <Header className="pb-4" />
         <div className="flex flex-wrap justify-between gap-y-4">
           {pokemonData.map((pokemon) => {
             return <Card pokemon={pokemon} />;
