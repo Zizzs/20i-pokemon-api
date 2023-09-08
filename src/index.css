@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url("https://fonts.googleapis.com/css2?family=Encode+Sans&family=Roboto&display=swap");
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -53,10 +53,6 @@ table {
   margin: 0;
   padding: 0;
   box-sizing: inherit;
-}
-
-html {
-  font-size: 62.5%;
 }
 
 body {
