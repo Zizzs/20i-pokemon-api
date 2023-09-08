@@ -1,7 +1,16 @@
+import { useEffect } from "react";
+import { usePokemonFilter } from "./hooks/usePokemonFilter";
+
 function App() {
+  const count = 151;
+
+  const pokemon = usePokemonFilter({ count });
+
+  console.log(pokemon);
+
   return (
-    <div className="App">
-      <div></div>
+    <div>
+      <div className="p-12"></div>
     </div>
   );
 }

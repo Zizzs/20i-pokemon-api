@@ -62,5 +62,5 @@ html {
 body {
   box-sizing: border-box;
   font-size: 1.6rem;
-	background-color: hsl(0, 0%, 93%);
+	background-color: hsla(240, 6%, 97%, 1);
 }
