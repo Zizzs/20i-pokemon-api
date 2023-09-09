@@ -4,11 +4,26 @@ import { Header } from "./components/Header";
 import { Card } from "./components/Card";
 import { Loader } from "./components/Loader";
 import { Pokemon } from "./types/pokemon";
+import Modal from "react-modal";
+import { PokemonModal } from "./components/PokemonModal";
 
 function App() {
   const [count, setCount] = useState<number>(151);
   const [sort, setSort] = useState<string>("id");
   const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>();
+  const [pokemonModalIsOpen, setPokemonModalIsOpen] = useState<boolean>(false);
+
+  const modalCustomStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      width: "500px",
+    },
+  };
 
   const pokemonData = usePokemonFilter({ count, sort });
 
@@ -22,10 +37,14 @@ function App() {
 
   const handleCardClick = (pokemon: Pokemon) => {
     setCurrentPokemon(pokemon);
+    setPokemonModalIsOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setPokemonModalIsOpen(false);
   };
 
   console.log(currentPokemon);
-
   return (
     <div>
       <div className="p-12">
@@ -54,6 +73,15 @@ function App() {
           </div>
         )}
       </div>
+      <Modal
+        isOpen={pokemonModalIsOpen}
+        onRequestClose={handleModalClose}
+        style={modalCustomStyles}
+        contentLabel="Pokemon"
+        ariaHideApp={false}
+      >
+        <PokemonModal currentPokemon={currentPokemon} />
+      </Modal>
     </div>
   );
 }

@@ -12,7 +12,9 @@ export const Card = ({ pokemon, handleClick }: CardProps) => {
 
   return (
     <div
-      className={classNames("flex w-[315px] h-[104px] bg-white rounded-lg p-4")}
+      className={classNames(
+        "flex w-[315px] h-[104px] bg-white rounded-lg p-4 cursor-pointer"
+      )}
       onClick={() => handleClick(pokemon)}
     >
       <div className="bg-neutral-30 rounded-full w-[72px] h-[72px]">
