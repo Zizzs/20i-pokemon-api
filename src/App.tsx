@@ -58,7 +58,7 @@ function App() {
           sort={sort}
         />
         {pokemonData.length ? (
-          <div className="flex flex-wrap justify-between gap-y-4">
+          <div className="flex flex-wrap justify-center md:justify-between gap-y-4">
             {pokemonData.map((pokemon, index) => {
               return (
                 <Card

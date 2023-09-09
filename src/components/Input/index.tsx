@@ -26,7 +26,7 @@ export const Input = ({
   };
 
   return (
-    <div className={classNames(className, "flex-row flex")}>
+    <div className={classNames(className, "flex-col lg:flex-row flex")}>
       <label className="mr-4  text-[20px]">{label}:</label>
       <input
         disabled={disabled}

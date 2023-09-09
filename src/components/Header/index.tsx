@@ -20,11 +20,11 @@ export const Header = ({
     <div
       className={classNames(
         className,
-        "text-4xl font-encode-sans font-[600] flex justify-between"
+        "text-4xl font-encode-sans font-[600] justify-between flex flex-col md:flex-row"
       )}
     >
-      <p>All the Pokemon!</p>
-      <div className="flex h-full justify-center items-center gap-8">
+      <p className="text-center md:text-left">All the Pokemon!</p>
+      <div className="flex flex-col md:flex-row justify-center items-center gap-8">
         <Input
           label="Total Pokemon (Change Me!)"
           type="number"
