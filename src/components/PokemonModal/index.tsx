@@ -14,7 +14,7 @@ export const PokemonModal = ({ currentPokemon }: PokemonModalProps) => {
 
   return (
     <div className="p-4">
-      <div className="flex flex-col align-center h-full w-full">
+      <div className="flex flex-col align-center h-full w-full font-roboto">
         <div className="flex align-center">
           <p className="items-center flex">{currentPokemonName}</p>
           <p className="flex justify-end w-full items-center">
@@ -69,7 +69,7 @@ export const PokemonModal = ({ currentPokemon }: PokemonModalProps) => {
                 className="justify-center flex flex-col items-center"
               >
                 <p className="text-[20px]">{stat.stat.name.toUpperCase()}</p>
-                <p>{stat.base_stat}</p>
+                <p className="text-[18px]">{stat.base_stat}</p>
               </div>
             );
           })}
