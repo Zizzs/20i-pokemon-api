@@ -27,12 +27,12 @@ export const Input = ({
 
   return (
     <div className={classNames(className, "flex-row flex")}>
-      <label className="mr-4 text-3xl">{label}:</label>
+      <label className="mr-4  text-[20px]">{label}:</label>
       <input
         disabled={disabled}
-        className="main-input rounded-[4px] py-[4px] px-[4px] text-3xl"
+        className="main-input rounded-[4px] py-[2px] px-[2px]  text-[20px]"
         type={type}
-        value={value}
+        value={value.toString()}
         onChange={handleInputChange}
       />
     </div>

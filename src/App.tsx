@@ -28,6 +28,9 @@ function App() {
   const pokemonData = usePokemonFilter({ count, sort });
 
   const handleCount = (value: number) => {
+    if (value > 151) {
+      value = 151;
+    }
     setCount(value);
   };
 
@@ -44,7 +47,6 @@ function App() {
     setPokemonModalIsOpen(false);
   };
 
-  console.log(currentPokemon);
   return (
     <div>
       <div className="p-12">

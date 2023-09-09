@@ -26,30 +26,32 @@ export const Header = ({
       <p>All the Pokemon!</p>
       <div className="flex h-full justify-center items-center gap-8">
         <Input
-          label="Total Pokemon"
+          label="Total Pokemon (Change Me!)"
           type="number"
           value={count}
           onChange={handleCount}
         />
         <div className="justify-center items-center flex">
-          <label className="pr-2">Name</label>
           <input
+            className="accent-base-10"
             type="radio"
             name="sort"
             value="name"
             checked={sort === "name"}
             onChange={() => handleSort("name")}
           />
+          <label className="pl-4 text-[20px]">Sort Name</label>
         </div>
         <div className="justify-center items-center flex">
-          <label className="pr-2">Id</label>
           <input
+            className="accent-base-10"
             type="radio"
             name="sort"
             value="id"
             checked={sort === "id"}
             onChange={() => handleSort("id")}
           />
+          <label className="pl-4 text-[20px]">Sort Id</label>
         </div>
       </div>
     </div>

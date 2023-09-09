@@ -22,9 +22,9 @@ export const PokemonModal = ({ currentPokemon }: PokemonModalProps) => {
           </p>
         </div>
         <div className="px-16 gap-8 justify-center flex w-full">
-          {currentPokemon?.types.map((type) => {
+          {currentPokemon?.types.map((type, index) => {
             return (
-              <p>
+              <p key={`pokemon-type-${index}`}>
                 {type.type.name.charAt(0).toUpperCase() +
                   type.type.name.slice(1)}
               </p>
@@ -62,9 +62,12 @@ export const PokemonModal = ({ currentPokemon }: PokemonModalProps) => {
           />
         </div>
         <div className="flex flex-wrap gap-8 justify-center">
-          {currentPokemon?.stats.map((stat) => {
+          {currentPokemon?.stats.map((stat, index) => {
             return (
-              <div className="justify-center flex flex-col items-center">
+              <div
+                key={`pokemon-stat-${index}`}
+                className="justify-center flex flex-col items-center"
+              >
                 <p className="text-[20px]">{stat.stat.name.toUpperCase()}</p>
                 <p>{stat.base_stat}</p>
               </div>
