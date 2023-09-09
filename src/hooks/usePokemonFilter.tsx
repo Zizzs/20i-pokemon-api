@@ -35,7 +35,15 @@ export const usePokemonFilter = ({ count = 151 }: usePokemonFilterProps) => {
       }
     };
 
-    fetchData();
+    const filterData = () => {
+      console.log("filtering");
+    };
+
+    if (pokemonData.length !== count) {
+      fetchData();
+    } else {
+      filterData();
+    }
   }, [count]);
 
   return pokemonData;
