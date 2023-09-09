@@ -13,7 +13,7 @@ export const Card = ({ pokemon, handleClick }: CardProps) => {
   return (
     <div
       className={classNames(
-        "flex w-[315px] h-[104px] bg-white rounded-lg p-4 cursor-pointer"
+        "flex w-[315px] h-[104px] bg-white rounded-lg p-4 cursor-pointer hover:outline-neutral-50 hover:outline hover:outline-2"
       )}
       onClick={() => handleClick(pokemon)}
     >
