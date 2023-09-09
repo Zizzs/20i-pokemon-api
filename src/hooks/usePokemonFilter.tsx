@@ -3,10 +3,18 @@ import { Pokemon } from "../types/pokemon";
 
 type usePokemonFilterProps = {
   count: number;
+  sort: string;
 };
 
-export const usePokemonFilter = ({ count = 151 }: usePokemonFilterProps) => {
+export const usePokemonFilter = ({
+  count = 151,
+  sort,
+}: usePokemonFilterProps) => {
   const [pokemonData, setPokemonData] = useState<Pokemon[]>([]);
+
+  if (Number.isNaN(count)) {
+    count = 1;
+  }
 
   useEffect(() => {
     // Build Pokemon API String
@@ -35,8 +43,30 @@ export const usePokemonFilter = ({ count = 151 }: usePokemonFilterProps) => {
       }
     };
 
+    // Filter function runs when the count does not change
     const filterData = () => {
-      console.log("filtering");
+      // Deep clone the array so no wonky pointer crap happens when mutating
+      const pokemonDataTemp = JSON.parse(JSON.stringify(pokemonData));
+
+      if (sort === "name") {
+        pokemonDataTemp.sort((pokemonA: Pokemon, pokemonB: Pokemon) => {
+          const nameA = pokemonA.name.toUpperCase();
+          const nameB = pokemonB.name.toUpperCase();
+
+          return nameA < nameB ? -1 : nameA > nameB ? 1 : 0;
+        });
+      }
+
+      if (sort === "id") {
+        pokemonDataTemp.sort((pokemonA: Pokemon, pokemonB: Pokemon) => {
+          const idA = pokemonA.id;
+          const idB = pokemonB.id;
+
+          return idA < idB ? -1 : idA > idB ? 1 : 0;
+        });
+      }
+
+      setPokemonData(pokemonDataTemp);
     };
 
     if (pokemonData.length !== count) {
@@ -44,7 +74,7 @@ export const usePokemonFilter = ({ count = 151 }: usePokemonFilterProps) => {
     } else {
       filterData();
     }
-  }, [count]);
+  }, [count, sort]);
 
   return pokemonData;
 };
