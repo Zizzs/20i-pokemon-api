@@ -26,8 +26,8 @@ export const Input = ({
   };
 
   return (
-    <div className={classNames(className, "flex-col flex mb-4")}>
-      <label className="mb-4 text-3xl">{label}</label>
+    <div className={classNames(className, "flex-row flex")}>
+      <label className="mr-4 text-3xl">{label}:</label>
       <input
         disabled={disabled}
         className="main-input rounded-[4px] py-[4px] px-[4px] text-3xl"
