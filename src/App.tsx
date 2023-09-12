@@ -57,7 +57,7 @@ function App() {
 
   return (
     <div className="h-full">
-      <div className="p-12">
+      <div className="container p-12 mx-auto">
         <Header className="pb-4" handleSort={handleSort} sort={sort} />
         {newShownPokemon ? (
           <div className="flex flex-wrap justify-center md:justify-between gap-y-4">

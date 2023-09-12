@@ -5,7 +5,7 @@ type FooterProps = {
 
 export const Footer = ({ currentOffset, setNewOffset }: FooterProps) => {
   return (
-    <div className="fixed bottom-0">
+    <div className="static md:fixed bottom-0">
       <div className="flex w-[100vw] justify-between p-12">
         {currentOffset ? (
           <p
