@@ -36,6 +36,7 @@ function App() {
 
   const handleSort = (value: string) => {
     setSort(value);
+    setOffset(0);
   };
 
   const handleCardClick = (pokemon: PokemonCard) => {
