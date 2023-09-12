@@ -11,6 +11,7 @@ import { Footer } from "./components/Footer";
 function App() {
   const [offset, setOffset] = useState<number>(0);
   const [sort, setSort] = useState<string>("id");
+  const [totalShown, setTotalShown] = useState<number>(12);
   const [currentPokemon, setCurrentPokemon] = useState<PokemonCard | null>();
   const [pokemonModalIsOpen, setPokemonModalIsOpen] = useState<boolean>(false);
 
@@ -39,6 +40,12 @@ function App() {
     setOffset(0);
   };
 
+  const handleTotalValue = (value: number) => {
+    if (!Number.isNaN(value)) {
+      setTotalShown(value);
+    }
+  };
+
   const handleCardClick = (pokemon: PokemonCard) => {
     setCurrentPokemon(pokemon);
     setPokemonModalIsOpen(true);
@@ -51,7 +58,7 @@ function App() {
   let newShownPokemon: Array<PokemonCard> = [];
 
   if (pokemonData.length) {
-    for (let i = offset; i < offset + 12; i++) {
+    for (let i = offset; i < offset + totalShown; i++) {
       newShownPokemon.push(pokemonData[i]);
     }
   }
@@ -59,7 +66,13 @@ function App() {
   return (
     <div className="h-full">
       <div className="container p-12 mx-auto">
-        <Header className="pb-4" handleSort={handleSort} sort={sort} />
+        <Header
+          className="pb-4"
+          handleSort={handleSort}
+          handleTotal={handleTotalValue}
+          totalValue={totalShown}
+          sort={sort}
+        />
         {newShownPokemon ? (
           <div className="flex flex-wrap justify-center md:justify-between gap-y-4">
             {newShownPokemon.map((pokemon, index) => {
@@ -78,7 +91,11 @@ function App() {
           </div>
         )}
       </div>
-      <Footer currentOffset={offset} setNewOffset={handleOffset} />
+      <Footer
+        currentOffset={offset}
+        setNewOffset={handleOffset}
+        totalShown={totalShown}
+      />
 
       <Modal
         isOpen={pokemonModalIsOpen}
