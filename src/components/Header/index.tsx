@@ -3,19 +3,11 @@ import { Input } from "../Input";
 
 type HeaderProps = {
   className?: string;
-  handleCount: (value: number) => void;
   handleSort: (value: string) => void;
-  count: number;
   sort: string;
 };
 
-export const Header = ({
-  className = "",
-  handleCount,
-  handleSort,
-  count,
-  sort,
-}: HeaderProps) => {
+export const Header = ({ className = "", handleSort, sort }: HeaderProps) => {
   return (
     <div
       className={classNames(
@@ -25,12 +17,6 @@ export const Header = ({
     >
       <p className="text-center md:text-left">All the Pokemon!</p>
       <div className="flex flex-col md:flex-row justify-center items-center gap-8">
-        <Input
-          label="Total Pokemon (Change Me!)"
-          type="number"
-          value={count}
-          onChange={handleCount}
-        />
         <div className="justify-center items-center flex">
           <input
             className="accent-base-10"

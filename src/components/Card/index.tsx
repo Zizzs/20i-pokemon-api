@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Pokemon } from "../../types/pokemon";
+import { PokemonCard } from "../../types/pokemon";
 import classNames from "classnames";
 
 type CardProps = {
-  pokemon: Pokemon;
-  handleClick: (pokemon: Pokemon) => void;
+  pokemon: PokemonCard;
+  handleClick: (pokemon: PokemonCard) => void;
 };
 
 export const Card = ({ pokemon, handleClick }: CardProps) => {
@@ -19,9 +19,7 @@ export const Card = ({ pokemon, handleClick }: CardProps) => {
     >
       <div className="bg-neutral-30 rounded-full w-[72px] h-[72px]">
         <img
-          src={
-            pokemon.sprites.front_default ? pokemon.sprites.front_default : ""
-          }
+          src={pokemon.image ? pokemon.image : "https://placehold.co/72x72"}
         />
       </div>
       <p className="h-full pl-3 flex items-center font-encode-sans">{name}</p>

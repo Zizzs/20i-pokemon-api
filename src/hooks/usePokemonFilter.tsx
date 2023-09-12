@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
-import { Pokemon } from "../types/pokemon";
+import { Pokemon, PokemonCard } from "../types/pokemon";
 
 type usePokemonFilterProps = {
-  count: number;
+  offset: number;
   sort: string;
 };
 
 export const usePokemonFilter = ({
-  count = 151,
+  offset = 0,
   sort,
 }: usePokemonFilterProps) => {
-  const [pokemonData, setPokemonData] = useState<Pokemon[]>([]);
-
-  if (Number.isNaN(count)) {
-    count = 1;
-  }
+  const [pokemonData, setPokemonData] = useState<PokemonCard[]>([]);
+  const [shownPokemon, setShownPokemon] = useState<PokemonCard[]>([]);
 
   useEffect(() => {
     // Build Pokemon API String
-    const pokemonApiString = `https://pokeapi.co/api/v2/pokemon?limit=${count}&offset=0`;
+    const pokemonApiString = `https://pokeapi.co/api/v2/pokemon?limit=100000`;
 
     const fetchData = async () => {
       try {
@@ -29,11 +26,21 @@ export const usePokemonFilter = ({
         const res = await fetch(pokemonApiString);
         const json = await res.json();
 
-        // Loop over the returned data to retrieve individual pokemon data
+        // Loop over the returned data to add in pokemon images
         for (let obj of json.results) {
-          const resTwo = await fetch(obj.url);
-          const jsonTwo: Pokemon = await resTwo.json();
-          pokemonDataTemp.push(jsonTwo);
+          // const resTwo = await fetch(obj.url);
+          // const jsonTwo: Pokemon = await resTwo.json();
+          const pokemonNumber = obj.url.slice(34).slice(0, -1);
+          const pokemonImageLink = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonNumber}.png`;
+
+          const pokemon = {
+            name: obj.name,
+            number: pokemonNumber,
+            image: pokemonImageLink,
+            url: obj.url,
+          };
+
+          pokemonDataTemp.push(pokemon);
         }
 
         // Set to state
@@ -49,7 +56,7 @@ export const usePokemonFilter = ({
       const pokemonDataTemp = JSON.parse(JSON.stringify(pokemonData));
 
       if (sort === "name") {
-        pokemonDataTemp.sort((pokemonA: Pokemon, pokemonB: Pokemon) => {
+        pokemonDataTemp.sort((pokemonA: PokemonCard, pokemonB: PokemonCard) => {
           const nameA = pokemonA.name.toUpperCase();
           const nameB = pokemonB.name.toUpperCase();
 
@@ -58,9 +65,9 @@ export const usePokemonFilter = ({
       }
 
       if (sort === "id") {
-        pokemonDataTemp.sort((pokemonA: Pokemon, pokemonB: Pokemon) => {
-          const idA = pokemonA.id;
-          const idB = pokemonB.id;
+        pokemonDataTemp.sort((pokemonA: PokemonCard, pokemonB: PokemonCard) => {
+          const idA = parseInt(pokemonA.number);
+          const idB = parseInt(pokemonB.number);
 
           return idA < idB ? -1 : idA > idB ? 1 : 0;
         });
@@ -69,12 +76,12 @@ export const usePokemonFilter = ({
       setPokemonData(pokemonDataTemp);
     };
 
-    if (pokemonData.length !== count) {
-      fetchData();
-    } else {
+    if (pokemonData.length) {
       filterData();
+    } else {
+      fetchData();
     }
-  }, [count, sort]);
+  }, [offset, sort]);
 
   return pokemonData;
 };

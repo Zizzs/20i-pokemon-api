@@ -3,14 +3,15 @@ import { usePokemonFilter } from "./hooks/usePokemonFilter";
 import { Header } from "./components/Header";
 import { Card } from "./components/Card";
 import { Loader } from "./components/Loader";
-import { Pokemon } from "./types/pokemon";
+import { Pokemon, PokemonCard } from "./types/pokemon";
 import Modal from "react-modal";
 import { PokemonModal } from "./components/PokemonModal";
+import { Footer } from "./components/Footer";
 
 function App() {
-  const [count, setCount] = useState<number>(151);
+  const [offset, setOffset] = useState<number>(0);
   const [sort, setSort] = useState<string>("id");
-  const [currentPokemon, setCurrentPokemon] = useState<Pokemon | null>();
+  const [currentPokemon, setCurrentPokemon] = useState<PokemonCard | null>();
   const [pokemonModalIsOpen, setPokemonModalIsOpen] = useState<boolean>(false);
 
   const modalCustomStyles = {
@@ -25,20 +26,19 @@ function App() {
     },
   };
 
-  const pokemonData = usePokemonFilter({ count, sort });
+  const pokemonData = usePokemonFilter({ offset, sort });
 
-  const handleCount = (value: number) => {
-    if (value > 151) {
-      value = 151;
+  const handleOffset = (value: number) => {
+    if (!(offset < 0) && !(offset > 1281)) {
+      setOffset(value);
     }
-    setCount(value);
   };
 
   const handleSort = (value: string) => {
     setSort(value);
   };
 
-  const handleCardClick = (pokemon: Pokemon) => {
+  const handleCardClick = (pokemon: PokemonCard) => {
     setCurrentPokemon(pokemon);
     setPokemonModalIsOpen(true);
   };
@@ -47,19 +47,21 @@ function App() {
     setPokemonModalIsOpen(false);
   };
 
+  let newShownPokemon: Array<PokemonCard> = [];
+
+  if (pokemonData.length) {
+    for (let i = offset; i < offset + 12; i++) {
+      newShownPokemon.push(pokemonData[i]);
+    }
+  }
+
   return (
-    <div>
+    <div className="h-full">
       <div className="p-12">
-        <Header
-          className="pb-4"
-          handleCount={handleCount}
-          handleSort={handleSort}
-          count={count}
-          sort={sort}
-        />
-        {pokemonData.length ? (
+        <Header className="pb-4" handleSort={handleSort} sort={sort} />
+        {newShownPokemon ? (
           <div className="flex flex-wrap justify-center md:justify-between gap-y-4">
-            {pokemonData.map((pokemon, index) => {
+            {newShownPokemon.map((pokemon, index) => {
               return (
                 <Card
                   key={`pokemon-card-${index}`}
@@ -75,6 +77,8 @@ function App() {
           </div>
         )}
       </div>
+      <Footer currentOffset={offset} setNewOffset={handleOffset} />
+
       <Modal
         isOpen={pokemonModalIsOpen}
         onRequestClose={handleModalClose}

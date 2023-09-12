@@ -130,3 +130,10 @@ export interface Pokemon {
   types: Type[];
   weight: number;
 }
+
+export interface PokemonCard {
+  name: string;
+  number: string;
+  image: string;
+  url: string;
+}
